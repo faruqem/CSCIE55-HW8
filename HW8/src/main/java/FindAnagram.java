@@ -4,6 +4,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -35,8 +38,7 @@ public class FindAnagram {
         //Extract the lines from the files saved in the "anagram-data" or another directory, process them
         //and save them in a Map called anagramsMap.
         try {
-            //List<String> linesList =
-            Map<String, List<String>> anagramsMap =
+            List<String> anagramsList =
                     Files.list(Paths.get(anagramDataFilesPath))
                             .filter(Files::isRegularFile) //Not mandatory, just to check if the file is a regular one,
                             //i.e. not any kind of special unix file.
@@ -48,9 +50,15 @@ public class FindAnagram {
                             })
                             .map(line -> line.replaceAll("[^A-Za-z ]+", ""))
                             .filter(line -> line.trim() != "")
-                            .distinct()
+                            //.distinct()
+                            .filter(distinctByKey(line -> {
+                                String word = line.replaceAll("[^A-Za-z]+","").toLowerCase();
+                                String oneWord = Arrays
+                                        .stream(word.split(""))
+                                        .collect(Collectors.joining());
+                                return oneWord;
+                            }))
                             //.peek(System.out::println)
-                            //
                             .collect(Collectors.groupingBy(
                                     line -> {
                                         String word = line.replaceAll("[^A-Za-z]+","").toLowerCase();
@@ -64,9 +72,28 @@ public class FindAnagram {
                     .entrySet()
                     .stream()
                     .filter(line -> line.getValue().size() > 1)
-                    .collect(Collectors.toMap(line -> line.getKey(), line -> line.getValue()));
+                            .map(line -> {
+                                String s = line.getKey() + "->";
+                                Integer count = 1;
+                                for(String l: line.getValue()) {
+                                    if(count < line.getValue().size())
+                                        s += l + "...";
+                                    else
+                                        s += l;
 
-        System.out.println(anagramsMap);
+                                    count++;
+                                }
+                                return s;
+                            })
+                            .collect(Collectors.toList());
+
+            anagramsList.stream().forEach(System.out:: println);
         } catch(IOException ioe) {}
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }
