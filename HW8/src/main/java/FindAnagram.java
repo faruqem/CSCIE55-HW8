@@ -32,9 +32,8 @@ public class FindAnagram {
         }
 
 
-        //Extract the lines from the files saved in the input directory args[0]
-        //and save them in a list called "linesList". This is the common part for both parts
-        //(i.e. two arguments vs four arguments) of the Problem2.
+        //Extract the lines from the files saved in the "anagram-data" or another directory, process them
+        //and save them in a Map called anagramsMap.
         try {
             //List<String> linesList =
             Map<String, List<String>> anagramsMap =
@@ -61,7 +60,11 @@ public class FindAnagram {
                                         return sortedWord;
                                     }
 
-                            ));
+                            ))
+                    .entrySet()
+                    .stream()
+                    .filter(line -> line.getValue().size() > 1)
+                    .collect(Collectors.toMap(line -> line.getKey(), line -> line.getValue()));
 
         System.out.println(anagramsMap);
         } catch(IOException ioe) {}
