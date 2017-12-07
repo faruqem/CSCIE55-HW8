@@ -69,9 +69,9 @@ public class FindAnagram {
                                     }
 
                             ))
-                    .entrySet()
-                    .stream()
-                    .filter(line -> line.getValue().size() > 1)
+                            .entrySet()
+                            .stream()
+                            .filter(line -> line.getValue().size() > 1)
                             .map(line -> {
                                 String s = line.getKey() + "->";
                                 Integer count = 1;
