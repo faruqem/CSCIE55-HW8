@@ -7,19 +7,18 @@ How to test:
 
 1. Please, download the homework8.jar file to a local folder. 
 
-2. Extract the contents by running the following command from the local folder: $jar -xf homework8.jar. This will give you all the necessary files and folder to test the solutions including the executable HW8.jar for both the solutions and the necessary data files for the Anagrams.
+2. Extract the contents by running the following command from the local folder: $ jar -xf homework8.jar. This will give you all the necessary files and folder to test the solutions including the executable HW8.jar for both the solutions and the necessary data files for the Anagrams.
 
-3. Sample runs for the BeerFest solution, run from the directory where you extracted the file:
-	a. Without any optional parameter (hardcoded in the code): $ java -cp HW8.jar cscie55.hw8.BeerFest
-	b. With the optional parameter value for “Country” parameter (“Price Range” is hardcoded): $java -cp HW8.jar cscie55.hw8.BeerFest Belgium
+3. Sample runs for the BeerFest solution from command line - three ways to run; run from the directory where you extracted the file:
+	a. Without any optional parameter values (default values: countryName = “USA”; Price Range - lowestPrice: 8.50f, highestPrice: 10.00f): $ java -cp HW8.jar cscie55.hw8.BeerFest
+	b. With the optional parameter value for “Country” parameter (default for Price Range - lowestPrice: 8.50f, highestPrice: 10.00f): $ java -cp HW8.jar cscie55.hw8.BeerFest Belgium
 	c. With the optional parameter values for both “Country” and “Price Range”: $java -cp HW8.jar cscie55.hw8.BeerFest Belgium 7.0f 10.0f
 
-4. Sample runs for the Anagram solution, run from the directory where you extracted the file:
-	a. Without the optional parameter value (hardcoded in the code - default): $java -cp HW8.jar cscie55.hw8.FindAnagram
-	b. With the optional parameter value: java -cp HW8.jar cscie55.hw8.FindAnagram anagram_data
+4. Sample runs for the Anagram solution from command line - three ways to run, run from the directory where you extracted the file:
+	a. Without the optional parameter value (defaults: input directory = “anagram_data” and output file = “anagram_output.txt” ): $ java -cp HW8.jar cscie55.hw8.FindAnagram
+	b. With the first optional parameter value (default value for output file: anagram_output.txt): $ java -cp HW8.jar cscie55.hw8.FindAnagram anagram_data
+	c. With both the optional parameter values: $ java -cp HW8.jar cscie55.hw8.FindAnagram anagram_data anagram_output.txt
 	
-
-
 
 Submission folder structure and contents:
 ————————————————————————————————————————
@@ -40,28 +39,72 @@ Submission folder structure and contents:
 		
 8. “Anagram-data” folder : data folder for FindAnangram - contains anagram-data.txt data file. 
 
-9. “Homework8.docx” : homework8 instruction file for convenience.
+9. “Homework8.docx” : Homework 8 instruction file for convenience.
 
 
 
 Solutions Overview:
 —————————————————
-1. Development environment: I developed in IntelliJ Idea as a Maven project on a Mac machine, created the jar file from the command line and run the solutions both from within IntelliJ Idea and command line to match the results.
+1. Development environment: I developed in IntelliJ Idea as a Maven project on a Mac (OS Sierra) machine, created the jar file from the command line and run the solutions both from within IntelliJ Idea and command line to check.
 
 2. BeerFest solution:
-	a. In case of BeerFest, I just implemented the unimplemented code as required by the homework without changing the core structure of the class or adding any extra comments. 
-	b. In my solution I gave the option to run the solution from command-line without any argument in which case it will run with default hard-code values or one argument which represent the parameter value for “Country” or three arguments - first one for “Country” the rest two for “Price Range” - lowest and highest price.
+	a. In case of BeerFest, I just implemented the unimplemented code as required by the homework without changing the core structure of the class or adding any extra features or comments/JavaDoc. 
+	b. In my solution I gave the option to run the solution from command-line (1) without any argument in which case it will run with default hard-coded values or (2) one argument which represent the parameter value for “Country” or (3) three arguments - first one is for “Country” the rest two are for “Price Range” - lowest and highest price. 
+	c. While passing the default values, I created the option to pass hardcoded values or values passed via command line argument- for country: “((argv.length != 0  && argv[0] != null) ? argv[0] : "USA")” and for price range: “(((argv.length >= 3 && argv[1] != null) ? Float.parseFloat(argv[1]) : 8.50f), ((argv.length >= 3 && argv[2] != null) ? Float.parseFloat(argv[2]) : 10.00f))”. So if argv[0] is not passed assume countryName=“USA”, and if argv[1] & argv[2] are not passed assume the price range = 8.50f to 10.00f.
+	d. Since I just filled-up the missing code, the solution was straight forward and without much option to change any already implemented code.
 
 3. Anagram solution:
-	a. I solved it with one class FindAnagram with the main() method and a predicate “distinctByKey”.
-	b. The solution can be run from the command line without any argument in which case default value “anagram-data” folder is hardcoded or with an argument in which case it will be taken as the input folder for anagram data file(s).
-	c. I created the solution in such a way so that it can work with one or more data files. 
-	d. The FindAnagram class is thoroughly commented. So more details can be found in the source files.
-	e. Solution flow: read and extract all the lines from all data files, remove any punctuation, numeric or special characters, remove any empty line. Remove any duplicate words (tricky part), group by key, remove any key-value for with single value just to find the anagrams, and finally save the anagrams into a list. Then I saved the file to an output file "anagram_output.txt" in the same folder. The output file name can also be supplied from the command line as the second argument value.
+	a. I solved it with a single class FindAnagram with the main() method and a predicate function “distinctByKey”.
+	b. The solution can be run from the command line (1) without any argument value in which case default value for data directory is “anagram-data” and output file is “anagram_output.txt”, (2) one argument value which represents the data directory, in which case default value for output file will be “anagram_output.txt” or (3) two argument values of which first one represents the anagram data directory & the second one represents the anagram output file.
+	c. I created the solution in such a way so that it can work with one or more data files saved in the input data directory. 
+	d. Solution flow: read and extract all the lines from all data files; remove any punctuation, numeric or special characters; remove any empty line; remove any duplicate words; now group by key and remove any key-value pair with a single item for values so that the list is only left with the anagrams; and finally collect the anagrams into a list. Then I saved the file to an output file "anagram_output.txt" in the same folder as well as printed the results in the command line. The output file name can also be supplied from the command line as the second argument value.
+	e. The most tricky part of the solution was removing any duplicate words in the data file because some duplicate words were in different format so calling straight forward distinct() method was not working and I had to declare & call a custom predicate called “distinctByKey”.
+	f. The FindAnagram class is thoroughly commented out. So more details can be found in the source files.
 
 
 Sample output (also attached as text files):
 ———————————————————————————————————————————
+BeerFest:
+————————-
+Command-line: $ java -cp HW8.jar cscie55.hw8.BeerFest
+Output:
+Country: USA Name: Sam Adams, price: 7.0
+Country: USA Name: Bud Light, price: 5.0
+Country: USA Name: Yuengling, price: 5.5
+Country: USA Name: Brooklyn Lager, price: 8.25
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+
+Command-line: $ java -cp HW8.jar cscie55.hw8.BeerFest Belgium
+Output:
+Country: Belgium Name: Stella, price: 7.75
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+
+Command-line: $ java -cp HW8.jar cscie55.hw8.BeerFest Belgium 7.0f 10.0f
+Output:
+Country: Belgium Name: Stella, price: 7.75
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: Belgium Name: Stella, price: 7.75
+Country: USA Name: Sam Adams, price: 7.0
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: USA Name: Brooklyn Lager, price: 8.25
+
+
+FindAnagram:
+———————————-
+Command-line: $ java -cp HW8.jar cscie55.hw8.FindAnagram
+Output: Please check “anagram_output.txt” for output.
+
+Command-line: $ java -cp HW8.jar cscie55.hw8.FindAnagram anagram_data
+Output: Please check “anagram_output.txt” for output.
+
+Command-line: $ java -cp HW8.jar cscie55.hw8.FindAnagram anagram_data anagram_output2.txt
+Output: Please check “anagram_output2.txt” for output.
 
 
 ———————————————————
