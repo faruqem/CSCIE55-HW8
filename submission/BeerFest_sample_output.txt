@@ -1,0 +1,22 @@
+faruqe 09:32 pm ~/dev/projects/homework8/submission: java -cp HW8.jar cscie55.hw8.BeerFest
+Country: USA Name: Sam Adams, price: 7.0
+Country: USA Name: Bud Light, price: 5.0
+Country: USA Name: Yuengling, price: 5.5
+Country: USA Name: Brooklyn Lager, price: 8.25
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+faruqe 09:32 pm ~/dev/projects/homework8/submission: java -cp HW8.jar cscie55.hw8.BeerFest Belgium
+Country: Belgium Name: Stella, price: 7.75
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+faruqe 09:33 pm ~/dev/projects/homework8/submission: java -cp HW8.jar cscie55.hw8.BeerFest Belgium 7.0f 10.0f
+Country: Belgium Name: Stella, price: 7.75
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: Belgium Name: Stella, price: 7.75
+Country: USA Name: Sam Adams, price: 7.0
+Country: Belgium Name: Leffe Blonde, price: 8.75
+Country: Belgium Name: Chimay Blue, price: 10.0
+Country: USA Name: Brooklyn Lager, price: 8.25

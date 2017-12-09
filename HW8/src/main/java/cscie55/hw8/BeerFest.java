@@ -1,3 +1,4 @@
+package cscie55.hw8;
 /* Adapted from code in "Java Programming", Chapter 20
    by Yakov Fain
    Reference "Java8 Resources" [http://courses.dce.harvard.edu/~cscie55/Java8Resources.html]
@@ -50,22 +51,23 @@ public class BeerFest {
 
         return beerStock;
     }
-    static Predicate<Beer> priceRangeQuery(Float priceFrom, Float priceTo) {
+    static Predicate<Beer> priceRangeQuery(Float priceLowest, Float priceHighest) {
         // ToDo: compose and return a Predicate that will
         //       express the selection criterion
-        return b -> b.getPrice() >= priceFrom && b.getPrice() <= priceTo;
+        return b -> b.getPrice() >= priceLowest && b.getPrice() <= priceHighest;
     }
     static Predicate<Beer> countryQuery(String countryName) {
         // ToDo: compose and return a Predicate that will
         //       express the selection criterion
-        return b -> b.country == countryName;
+        return b -> b.country.equals(countryName);
     }
     public static void main(String argv[]) {
         List<Beer> beerList = loadCellar();
         // Call beerQuery with a predicate for selecting a country
-        beerQuery(beerList, countryQuery("USA")).stream().forEach(System.out::println);
+        beerQuery(beerList, countryQuery(((argv.length != 0  && argv[0] != null) ? argv[0] : "USA"))).stream().forEach(System.out::println);
         // Call beerQuery with a predicate for a price range
-        beerQuery(beerList, priceRangeQuery(8.50f, 10.00f)).stream().forEach(System.out::println);
+        beerQuery(beerList, priceRangeQuery(((argv.length >= 3 && argv[1] != null) ? Float.parseFloat(argv[1]) : 8.50f),
+                ((argv.length >= 3 && argv[2] != null) ? Float.parseFloat(argv[2]) : 10.00f))).stream().forEach(System.out::println);
     }
 }
 
