@@ -44,28 +44,24 @@ Submission folder structure and contents:
 
 
 
-Solution Overview:
+Solutions Overview:
 —————————————————
 1. Development environment: I developed in IntelliJ Idea as a Maven project on a Mac machine, created the jar file from the command line and run the solutions both from within IntelliJ Idea and command line to match the results.
 
-3. Problem1 solution:
-	a. I resolved this problem by writing one class - LinkParser and calling the methods of the supplied Link class to get the URL and related Tags from each line of the supplied JSON data files.
+2. BeerFest solution:
+	a. In case of BeerFest, I just implemented the unimplemented code as required by the homework without changing the core structure of the class or adding any extra comments. 
+	b. In my solution I gave the option to run the solution from command-line without any argument in which case it will run with default hard-code values or one argument which represent the parameter value for “Country” or three arguments - first one for “Country” the rest two for “Price Range” - lowest and highest price.
 
-	b. First I gather the URL as the Key and Set of tags as Values in a Map “linkTags” in the reduce() method of  Reducer without writing the results to context yet and then processed & wrote the results by concatenating the tags in the cleanup() method of the Reducer. 
+3. Anagram solution:
+	a. I solved it with one class FindAnagram with the main() method and a predicate “distinctByKey”.
+	b. The solution can be run from the command line without any argument in which case default value “anagram-data” folder is hardcoded or with an argument in which case it will be taken as the input folder for anagram data file(s).
+	c. I created the solution in such a way so that it can work with one or more data files. 
+	d. The FindAnagram class is thoroughly commented. So more details can be found in the source files.
+	e. Solution flow: read and extract all the lines from all data files, remove any punctuation, numeric or special characters, remove any empty line. Remove any duplicate words (tricky part), group by key, remove any key-value for with single value just to find the anagrams, and finally save the anagrams into a list. Then I saved the file to an output file "anagram_output.txt" in the same folder. The output file name can also be supplied from the command line as the second argument value.
 
 
-4. Problem 2 Solution:
-	a. I resolved the Problem2 by writing one class - LinkStreamer and calling the methods of the supplied Link class to get the URL, Timestamps and related Tags from each line of the supplied JSON data files.
-
-	b. First I gathered all the lines from all 15 JSON data files in a List based on the passed arguments - in case of two arguments, the List contains all the lines and in case of four arguments, the List contains only the lines fell within the supplied start and end date range.
-
-	c. Then within a IF clause first I resolved the Problem 2 Part 2 when run with four arguments in the format <URL Count>. This part was straight forward. I created a Map<String Long> by grouping on the URL and counting the total number of the same URL. Finally wrote the output in a file. Please, check the inline code for more details.
-
-	d. Then in the ELSE clause I resolved the Part 1 of the Problem2 i.e. when supplied with two arguments to create an output in the format <URL tags> which was much more complicated because of duplicate tags scattered around the files for a URL. That’s why I did it in a multiple steps by cleaning up data in each step to gather the final result set in a Map<String String> to represent the URL as the Key and a comma delimited string of unique tags as the Value. Finally wrote the output in a file. Please, check the inline comment for more details.
-
-	e. To calculate the seconds past since January 1, 1970 for a supplied date, I created a separate method secondsPast() in the LinkStreamer class by using Charles’ supplied code. This is a simple utility method developed for convenience - so I wrote it straight forward without using any Stream APIs.
-
-5. All solutions are well commented and java doc documented. So more details can be found in the source files.
+Sample output (also attached as text files):
+———————————————————————————————————————————
 
 
 ———————————————————
